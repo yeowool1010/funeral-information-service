@@ -10,6 +10,17 @@
 
 ---
 
+## 🛠️ 실행 방법
+
+```bash
+git clone https://github.com/your-username/funeral-information-service.git
+cd funeral-information-service
+npm install
+npm run dev
+```
+
+---
+
 ## 📅 프로젝트 일정
 
 | 주차 | 작업 내용 |
@@ -77,12 +88,3 @@
 - 공공 데이터 + 후기 + 위치 추천 결합 → 실용성 극대화
 - 사용자 중심의 신뢰 가능한 장례 정보 플랫폼
 
----
-
-## 🛠️ 실행 방법
-
-```bash
-git clone https://github.com/your-username/funeral-information-service.git
-cd funeral-information-service
-npm install
-npm run dev
