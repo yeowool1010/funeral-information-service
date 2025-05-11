@@ -11,13 +11,15 @@
 ---
 
 ## 🛠️ 실행 방법
+레포지토리 우측에 vercel로 배포 되어있는 링크로 확인 가능!
+
+하단의 실행 방법은 local
 
 ```bash
-git clone https://github.com/your-username/funeral-information-service.git
-cd funeral-information-service
 npm install
 npm run dev
 ```
+
 
 ---
 
