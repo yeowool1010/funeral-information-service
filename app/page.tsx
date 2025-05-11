@@ -1,6 +1,6 @@
 import Image from "next/image";
 
-export default function FuneralHomeSearchPage() {
+export default function Home() {
   return (
     <div className="min-h-screen flex bg-[#F9FAFB] font-sans text-[#333]">
       {/* Sidebar */}
