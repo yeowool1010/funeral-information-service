@@ -1,4 +1,3 @@
-import Image from "next/image";
 import Header from '@/app/components/Header';
 import FuneralPage from '@/app/person-funeral/page';
 

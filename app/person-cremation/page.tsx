@@ -47,7 +47,6 @@ export default function CremationPage() {
   const [data, setData] = useState<CremationItem[]>([]);
   const [ctpv, setCtpv] = useState('서울특별시');
   const [loading, setLoading] = useState(false);
-  const [submitted, setSubmitted] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalCount, setTotalCount] = useState(0);
   const rowsPerPage = 10;
@@ -74,12 +73,10 @@ export default function CremationPage() {
 
   useEffect(() => {
     fetchData(1, '서울특별시');
-    setSubmitted(true); // ✅ 초기 렌더링에서도 submitted true 처리
   }, []);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    setSubmitted(true);
     setCurrentPage(1);
     fetchData(1, ctpv);
   };
