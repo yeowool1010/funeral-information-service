@@ -60,7 +60,6 @@ export default function FuneralPage() {
         `/api/funeral?pageNo=${page}&numOfRows=${rowsPerPage}&ctpv=${encodeURIComponent(region)}`
       );
       const json = await res.json();
-      console.log('✅ 전체 응답:', json);
 
       const rawItems = json?.items;
       const total = parseInt(json?.totalCount ?? '0', 10);
@@ -123,7 +122,7 @@ export default function FuneralPage() {
         <select
           value={ctpv}
           onChange={(e) => setCtpv(e.target.value)}
-          className="border px-3 py-2 flex-1 rounded"
+          className="border px-3 py-2 flex-1 rounded light:bg-white dark:text-white dark:bg-black"
         >
           {regions.map((region) => (
             <option key={region} value={region}>
