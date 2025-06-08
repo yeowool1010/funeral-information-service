@@ -5,7 +5,7 @@ import { supabase } from '@/app/lib/supabase';
 export async function POST(req: NextRequest) {
   const { email } = await req.json();
 
-  const { data, error } = await supabase
+  const { data } = await supabase
     .from('users')
     .select('email')
     .eq('email', email)
