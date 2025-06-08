@@ -138,7 +138,7 @@ export default function FuneralPage() {
           검색
         </button>
       </form>
-      <h1 className="text-2xl font-bold mb-4">{ctpv} 총 장례식장 {totalCount}</h1>
+      {!loading && <h1 className="text-2xl font-bold mb-4">{ctpv} 총 장례식장 {totalCount}</h1>}
 
       {loading && <p>🔄 로딩 중입니다...</p>}
 
