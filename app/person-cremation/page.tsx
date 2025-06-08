@@ -3,25 +3,24 @@
 import { useEffect, useState } from 'react';
 import Header from '@/app/components/Header';
 
-type FuneralItem = {
-  sigungu: string;
-  fxno: string;
-  store: string;
-  bereavedWaitRm: string;
-  operType: string;
-  diningFclt: string;
-  telno: string;
-  gubun: string;
-  fcltNm: string;
-  homepageUrl: string;
-  tpkct: string;
-  pklt: string;
-  ctpv: string;
-  addr: string;
-  ehrCnt: string;
-  mtaCnt: string;
-  sdblsPfFclt: string;
+type CremationItem = {
+  ctpv: string;                // 시도
+  sigungu: string;            // 시군구
+  fcltNm: string;             // 시설명
+  addr: string;               // 주소
+  telno: string;              // 전화번호
+  fxno: string;               // 팩스번호
+  homepageUrl: string;        // 홈페이지
+  tpkct: string;              // 안치가능구수
+  gubun: string;              // 구분 (공설/사설)
+  brzCnt: string;             // 빈소 수
+  diningFclt: string;         // 식당
+  store: string;              // 매점
+  pklt: string;               // 주차장
+  bereavedWaitRm: string;     // 유족대기실
+  sdblsPfFclt: string;        // 장애인 편의시설
 };
+
 
 // ✅ 한국 시/도 목록
 const regions = [
@@ -45,7 +44,7 @@ const regions = [
 ];
 
 export default function CremationPage() {
-  const [data, setData] = useState<FuneralItem[]>([]);
+  const [data, setData] = useState<CremationItem[]>([]);
   const [ctpv, setCtpv] = useState('서울특별시');
   const [loading, setLoading] = useState(false);
   const [submitted, setSubmitted] = useState(false);
@@ -55,22 +54,17 @@ export default function CremationPage() {
 
   const fetchData = async (page: number, region: string) => {
     setLoading(true);
-
     try {
       const res = await fetch(
-        `/api/funeral?pageNo=${page}&numOfRows=${rowsPerPage}&ctpv=${encodeURIComponent(region)}`
+        `/api/cremation?pageNo=${page}&numOfRows=${rowsPerPage}&ctpv=${encodeURIComponent(region)}`
       );
       const json = await res.json();
-      console.log('✅ 전체 응답:', json);
-
       const rawItems = json?.items;
       const total = parseInt(json?.totalCount ?? '0', 10);
       const items = Array.isArray(rawItems) ? rawItems : rawItems ? [rawItems] : [];
-
       setData(items);
       setTotalCount(total);
     } catch (err) {
-      console.error('❌ API 호출 오류:', err);
       setData([]);
       setTotalCount(0);
     } finally {
@@ -78,9 +72,9 @@ export default function CremationPage() {
     }
   };
 
-  // ✅ 초기 로딩: 서울특별시
   useEffect(() => {
     fetchData(1, '서울특별시');
+    setSubmitted(true); // ✅ 초기 렌더링에서도 submitted true 처리
   }, []);
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -117,11 +111,11 @@ export default function CremationPage() {
   };
 
   return (
-<div>
-  <Header />
+    <div>
+      <Header />
       <div className="p-6 max-w-3xl mx-auto">
-        <h1 className="text-2xl font-bold mb-4">전국 장례식장 현황 검색</h1>
-  
+        <h1 className="text-2xl font-bold mb-4">전국 화장시설 현황 검색</h1>
+
         <form onSubmit={handleSubmit} className="mb-6 flex gap-2">
           <select
             value={ctpv}
@@ -141,13 +135,16 @@ export default function CremationPage() {
             검색
           </button>
         </form>
-        {!loading && <h1 className="text-2xl font-bold mb-4">{ctpv} 총 장례식장 {totalCount}</h1>}
-  
+
+        {!loading && (
+          <h1 className="text-2xl font-bold mb-4">{ctpv} 총 화장시설 {totalCount}곳</h1>
+        )}
+
         {loading && <p>🔄 로딩 중입니다...</p>}
-  
+
         {!loading && (
           <>
-            {data.length === 0 && submitted ? (
+            {data.length === 0 ? (
               <p className="text-gray-500">🔍 검색 결과가 없습니다.</p>
             ) : (
               <>
@@ -159,10 +156,8 @@ export default function CremationPage() {
                       <p><strong>시군구:</strong> {item.sigungu}</p>
                       <p><strong>주소:</strong> {item.addr}</p>
                       <p><strong>전화번호:</strong> {item.telno}</p>
-                      <p><strong>운영형태:</strong> {item.operType}</p>
+                      {/* <p><strong>운영형태:</strong> {item.operType}</p> */}
                       <p><strong>구분:</strong> {item.gubun}</p>
-                      <p><strong>빈소 수:</strong> {item.ehrCnt}</p>
-                      <p><strong>염습실 수:</strong> {item.mtaCnt}</p>
                       <p><strong>안치가능구수:</strong> {item.tpkct}</p>
                       <p><strong>식당:</strong> {item.diningFclt}</p>
                       <p><strong>매점:</strong> {item.store}</p>
@@ -173,7 +168,7 @@ export default function CremationPage() {
                         <p>
                           <strong>홈페이지:</strong>{' '}
                           <a
-                            href={item.homepageUrl}
+                            href={item.homepageUrl.startsWith('http') ? item.homepageUrl : `http://${item.homepageUrl}`}
                             target="_blank"
                             rel="noopener noreferrer"
                             className="text-blue-600 underline"
@@ -191,6 +186,6 @@ export default function CremationPage() {
           </>
         )}
       </div>
-</div>
+    </div>
   );
 }
