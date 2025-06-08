@@ -64,7 +64,7 @@ export default function CremationPage() {
       const items = Array.isArray(rawItems) ? rawItems : rawItems ? [rawItems] : [];
       setData(items);
       setTotalCount(total);
-    } catch (err) {
+    } catch {
       setData([]);
       setTotalCount(0);
     } finally {

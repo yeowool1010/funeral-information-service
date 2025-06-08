@@ -32,8 +32,7 @@ export default function AnimalFuneralPage() {
       
       setData(json.data || []);
       setTotalCount(json.totalCount || 0);
-    } catch (err) {
-      console.error('❌ API 호출 오류:', err);
+    } catch {
       setData([]);
       setTotalCount(0);
     } finally {

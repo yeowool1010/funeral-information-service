@@ -67,8 +67,7 @@ export default function FuneralPage() {
 
       setData(items);
       setTotalCount(total);
-    } catch (err) {
-      console.error('❌ API 호출 오류:', err);
+    } catch {
       setData([]);
       setTotalCount(0);
     } finally {

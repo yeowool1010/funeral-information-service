@@ -24,8 +24,7 @@ export async function GET(req: NextRequest) {
       data: json.data || [],
       totalCount: json.totalCount || 0,
     });
-  } catch (err) {
-    console.error('🔥 API 호출 실패:', err);
+  } catch {
     return NextResponse.json({ error: 'API 호출 실패' }, { status: 500 });
   }
 }
